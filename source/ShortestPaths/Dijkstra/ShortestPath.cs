@@ -15,6 +15,14 @@ namespace ShortestPaths.Dijkstra
         public ShortestPath(List<Arc> arcs)
         {
             OrderedArcs = arcs;
+            if(!IsEmpty)
+            {
+                TotalWeight = DestinationNode.DistanceFromSource;
+            }
+            else
+            {
+                TotalWeight = double.NaN;
+            }
         }
 
         public List<Arc> OrderedArcs { get; set; }
@@ -66,16 +74,7 @@ namespace ShortestPaths.Dijkstra
             }
         }
 
-        public double TotalWeight
-        {
-            get
-            {
-                if (!IsEmpty)
-                    return DestinationNode.DistanceFromSource;
-                else
-                    return double.NaN;
-            }
-        }
+        public double TotalWeight { get; private set; }
 
         public bool IsEmpty
         {

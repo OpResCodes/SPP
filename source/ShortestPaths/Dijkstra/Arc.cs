@@ -22,6 +22,7 @@ namespace ShortestPaths.Dijkstra
             Origin = o;
             Destination = d;
             Weight = weight;
+            AutoAttach();
         }
 
         /// <summary>
