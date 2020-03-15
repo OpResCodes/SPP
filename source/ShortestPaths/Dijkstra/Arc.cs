@@ -51,7 +51,7 @@ namespace ShortestPaths.Dijkstra
         /// <summary>
         /// Weight of the Arc
         /// </summary>
-        public double Weight { get; private set; }
+        public double Weight { get; protected set; }
 
         /// <summary>
         /// Adds the Arc to the Adjacency List of the Node if it is not yet included

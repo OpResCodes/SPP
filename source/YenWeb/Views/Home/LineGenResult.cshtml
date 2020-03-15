@@ -1,0 +1,32 @@
+﻿@model YenWeb.Models.YenInputViewmodel
+
+@{
+    ViewData["Title"] = "Line Generation";
+}
+
+<h2>Line Generation</h2>
+
+<div>
+    <h4>Results of modified Yen's k-Shortest-Path Algorithm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MinimumLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MinimumLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaximumLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaximumLength)
+        </dd>
+        <dt>
+            CSV Result Text (for Copy/Pasting)
+        </dt>
+        <dd>
+            <textarea cols="100" rows="20">@Model.CsvString</textarea>
+        </dd>
+    </dl>
+</div>

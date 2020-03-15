@@ -1,0 +1,11 @@
+LineString;Origin;Destination;Weight
+a;N0;N3;3
+b;N0;N5;5
+c;N3;N5;2
+d;N3;N9;6
+e;N5;N3;1
+f;N5;N11;6
+g;N5;N9;4
+h;N9;N11;2
+i;N11;N9;7
+j;N11;N0;3

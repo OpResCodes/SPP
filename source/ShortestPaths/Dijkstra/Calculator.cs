@@ -167,7 +167,7 @@ namespace ShortestPaths.Dijkstra
             }
         }
 
-        private void Reset()
+        internal void Reset()
         {
             _dijkstra.Initialize(this.Graph);
             _stats.Reset();
@@ -189,7 +189,6 @@ namespace ShortestPaths.Dijkstra
                 }
                 arcs.Reverse();
             }
-
             return new ShortestPath(arcs);
         }
 
@@ -286,6 +285,9 @@ namespace ShortestPaths.Dijkstra
 
         private void Relax(Node o, Node d, Arc arc)
         {
+            if (double.IsInfinity(arc.Weight))
+                return;
+
             double stretch = o.DistanceFromSource + arc.Weight;
             if (d.DistanceFromSource > stretch)
             {

@@ -108,8 +108,8 @@ namespace GamsPaths
             using (GAMS.GAMSDatabase db = gamsProject.AddDatabaseFromGDX(gdxFile))
             {
                 //read nodes
-                GAMS.GAMSSet gdxNodeSet = db.GetSet(v);
                 Dictionary<string, GamsNode> nodeLookup = new Dictionary<string, GamsNode>();
+                GAMS.GAMSSet gdxNodeSet = db.GetSet(v);
                 foreach (GAMS.GAMSSetRecord record in gdxNodeSet)
                 {
                     nodeLookup.Add(record.Keys[0], new GamsNode(record.Keys[0]));
@@ -122,7 +122,7 @@ namespace GamsPaths
                 {
                     string first = record.Keys[0];
                     string second = record.Keys[1];
-                    arcs[k] = new Arc(nodeLookup[record.Keys[0]], nodeLookup[record.Keys[1]], record.Value == double.Epsilon ? 0 : record.Value);
+                    arcs[k] = new Arc(nodeLookup[first], nodeLookup[second], record.Value == double.Epsilon ? 0 : record.Value);
                     k++;
                 }
                 return new Graph(arcs, nodeLookup.Values.ToArray());

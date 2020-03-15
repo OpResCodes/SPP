@@ -1,0 +1,56 @@
+﻿@model YenWeb.Models.YenInputViewmodel
+
+@{
+    ViewData["Title"] = "LineGen";
+}
+
+<h2>Line Generation Algorithm</h2>
+<p class="small">Based on modified <a href="https://doi.org/10.1287/mnsc.17.11.712" target="_blank">Yen's Algorithm</a> to find the k shortest loopless paths in a network</p>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <p>Please provide CSV data in the following structure:</p>
+        <p>
+            Arc;Node1;Node2;Weight <br />
+            K1;N1;N3;30 <br />
+            K2;N2;N3;25 <br />
+            K3;N3;N4;15 <br />
+            ...
+        </p>
+        <p>Nodelabels, Arclabels can be any arbitrary string, the header line can be any string (will be skipped). The column order must not be changed.</p>
+        <form asp-action="LineGen">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MinimumLength" class="control-label"></label>
+                <input asp-for="MinimumLength" class="form-control" />
+                <span asp-validation-for="MinimumLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaximumLength" class="control-label"></label>
+                <input asp-for="MaximumLength" class="form-control" />
+                <span asp-validation-for="MaximumLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="MirrorArcs" class="form-inline" />
+                <label asp-for="MirrorArcs" class="control-label"></label>
+                <span asp-validation-for="MirrorArcs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CsvString" class="control-label"></label>
+                <textarea name="CsvString" cols="80" rows="10"></textarea>
+                <span asp-validation-for="CsvString" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <img src="~/images/metro.png" class="img-responsive" />
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

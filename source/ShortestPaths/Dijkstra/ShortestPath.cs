@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ShortestPaths.Dijkstra
 {
@@ -15,7 +13,7 @@ namespace ShortestPaths.Dijkstra
         public ShortestPath(List<Arc> arcs)
         {
             OrderedArcs = arcs;
-            if(!IsEmpty)
+            if (!IsEmpty)
             {
                 TotalWeight = DestinationNode.DistanceFromSource;
             }
@@ -31,18 +29,23 @@ namespace ShortestPaths.Dijkstra
         {
             get
             {
-                List<Node> nodes = new List<Node>();
-                if (!IsEmpty)
+                if (_orderedNodes == null)
                 {
-                    for (int i = 0; i < OrderedArcs.Count; i++)
+                    _orderedNodes = new List<Node>();
+                    if (!IsEmpty)
                     {
-                        nodes.Add(OrderedArcs[i].Origin);
+                        for (int i = 0; i < OrderedArcs.Count; i++)
+                        {
+                            _orderedNodes.Add(OrderedArcs[i].Origin);
+                        }
+                        _orderedNodes.Add(DestinationNode);
                     }
-                    nodes.Add(DestinationNode);
                 }
-                return nodes;
+                return _orderedNodes;
             }
         }
+
+        private List<Node> _orderedNodes = null;
 
         public Node OriginNode
         {
@@ -50,7 +53,7 @@ namespace ShortestPaths.Dijkstra
             {
                 if (!IsEmpty)
                 {
-                    return OrderedArcs.First().Origin;
+                    return OrderedArcs[0].Origin;
                 }
                 else
                 {
@@ -65,7 +68,7 @@ namespace ShortestPaths.Dijkstra
             {
                 if (!IsEmpty)
                 {
-                    return OrderedArcs.Last().Destination;
+                    return OrderedArcs[OrderedArcs.Count - 1].Destination;
                 }
                 else
                 {
@@ -74,11 +77,11 @@ namespace ShortestPaths.Dijkstra
             }
         }
 
-        public double TotalWeight { get; private set; }
+        public double TotalWeight { get; set; }
 
         public bool IsEmpty
         {
-            get { return !OrderedArcs.Any(); }
+            get { return OrderedArcs == null || OrderedArcs.Count == 0; }
         }
 
         public override string ToString()

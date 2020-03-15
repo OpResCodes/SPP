@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ShortestPaths.Dijkstra.Calculator">
+    <Position X="9.5" Y="1.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAIgBAAAAAAACAAAAAAAABgwECAAAhIgAAA=</HashCode>
+      <FileName>Dijkstra\Calculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShortestPaths.Dijkstra.ShortestPath">
+    <Position X="14" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAACAAEIAAAACAAAAAAAAAAEAAAAAAAAAI=</HashCode>
+      <FileName>Dijkstra\ShortestPath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShortestPaths.Dijkstra.Graph">
+    <Position X="5.75" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Dijkstra\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

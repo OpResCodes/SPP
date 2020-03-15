@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ShortestPaths.Dijkstra.Node">
+    <Position X="5.25" Y="4.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ShortestPaths.Dijkstra.Arc">
+    <Position X="5.75" Y="1.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ShortestPaths.Dijkstra.Graph" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Arcs" Type="ShortestPaths.Dijkstra.Arc" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="3.655" />
+        <Point X="3.875" Y="3.655" />
+        <Point X="3.875" Y="2.22" />
+        <Point X="5.75" Y="2.22" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Nodes" Type="ShortestPaths.Dijkstra.Node" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="3.886" />
+        <Point X="4.125" Y="3.886" />
+        <Point X="4.125" Y="5.875" />
+        <Point X="5.25" Y="5.875" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Arcs" />
+      <Property Name="Nodes" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GamsPaths.GamsNode">
+    <Position X="5.5" Y="8" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>GamsNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GAMS.GAMSDatabase">
+    <Position X="13" Y="4" Width="3.25" />
+    <Members>
+      <Method Name="Finalize" Hidden="true" />
+      <Method Name="CheckDomains" Hidden="true" />
+      <Method Name="Compact" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="GetDatabaseDVs" Hidden="true" />
+      <Method Name="GetEnumerator" Hidden="true" />
+      <Method Name="GetEquation" Hidden="true" />
+      <Property Name="NrSymbols" Hidden="true" />
+      <Property Name="SuppressAutoDomainChecking" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Workspace" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GAMS.GAMSWorkspace">
+    <Position X="13" Y="1" Width="3.25" />
+    <Members>
+      <Method Name="Finalize" Hidden="true" />
+      <Method Name="AddCheckpoint" Hidden="true" />
+      <Method Name="AddJobFromApiLib" Hidden="true" />
+      <Method Name="AddJobFromDataLib" Hidden="true" />
+      <Method Name="AddJobFromEmpLib" Hidden="true" />
+      <Method Name="AddJobFromFile" Hidden="true" />
+      <Method Name="AddJobFromFinLib" Hidden="true" />
+      <Method Name="AddJobFromGamsLib" Hidden="true" />
+      <Method Name="AddJobFromNoaLib" Hidden="true" />
+      <Method Name="AddJobFromPsoptLib" Hidden="true" />
+      <Method Name="AddJobFromString" Hidden="true" />
+      <Method Name="AddJobFromTestLib" Hidden="true" />
+      <Method Name="AddOptions" Hidden="true" />
+      <Property Name="APIGoldRelNumber" Hidden="true" />
+      <Method Name="ApiLib" Hidden="true" />
+      <Property Name="APIMajorRelNumber" Hidden="true" />
+      <Property Name="APIMinorRelNumber" Hidden="true" />
+      <Property Name="APIVersion" Hidden="true" />
+      <Method Name="DataLib" Hidden="true" />
+      <Method Name="EmpLib" Hidden="true" />
+      <Method Name="FinLib" Hidden="true" />
+      <Method Name="GamsLib" Hidden="true" />
+      <Method Name="GAMSWorkspace" Hidden="true" />
+      <Property Name="GoldRelNumber" Hidden="true" />
+      <Property Name="MajorRelNumber" Hidden="true" />
+      <Property Name="MinorRelNumber" Hidden="true" />
+      <Property Name="MyEPS" Hidden="true" />
+      <Method Name="NoaLib" Hidden="true" />
+      <Method Name="PsoptLib" Hidden="true" />
+      <Field Name="ScratchFilePrefix" Hidden="true" />
+      <Method Name="TestLib" Hidden="true" />
+      <Property Name="Version" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="GAMS.GAMSSymbol">
+    <Position X="18" Y="4" Width="3" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="GAMSDatabase" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GAMS.GAMSSet" Collapsed="true">
+    <Position X="22.75" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="GAMS.GAMSParameter" Collapsed="true">
+    <Position X="22.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GAMS.GAMSSymbolRecord" Collapsed="true">
+    <Position X="18.25" Y="7" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GAMS.GAMSParameterRecord" Collapsed="true">
+    <Position X="20.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="GAMS.GAMSSetRecord">
+    <Position X="15.75" Y="9.5" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ShortestPaths.Dijkstra.ShortestPath">
+    <Position X="9.25" Y="3.5" Width="2.25" />
+    <Members>
+      <Property Name="IsEmpty" Hidden="true" />
+      <Property Name="OrderedArcs" Hidden="true" />
+      <Property Name="OrderedNodes" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="OriginNode" Type="ShortestPaths.Dijkstra.Node" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.062" Y="4.863" />
+        <Point X="10.062" Y="5.625" />
+        <Point X="8" Y="5.625" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="DestinationNode" Type="ShortestPaths.Dijkstra.Node" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.438" Y="4.863" />
+        <Point X="10.438" Y="6.375" />
+        <Point X="8" Y="6.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="OriginNode" />
+      <Property Name="DestinationNode" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
