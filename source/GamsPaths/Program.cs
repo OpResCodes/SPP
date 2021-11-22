@@ -128,5 +128,6 @@ namespace GamsPaths
                 return new Graph(arcs, nodeLookup.Values.ToArray());
             }
         }
+
     }
 }

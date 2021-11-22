@@ -2,6 +2,7 @@
 using ShortestPaths.Yen;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace YenWeb.Logic
         {
             Dictionary<string, TaggedNode> readNodes = new Dictionary<string, TaggedNode>();
             Dictionary<string, DynamicArc> readArcs = new Dictionary<string, DynamicArc>();
-
+            CultureInfo formatter = new CultureInfo("en-US");
             using (StringReader reader = new StringReader(csvGraph))
             {
                 reader.ReadLine();
@@ -31,7 +32,7 @@ namespace YenWeb.Logic
                     string[] col = row.Split(';');
                     string n1 = col[1];
                     string n2 = col[2];
-                    double w = double.Parse(col[3]);
+                    double w = double.Parse(col[3].Replace(',', '.'), formatter);
                     string idx = $"{n1}_{n2}";
                     string idxReverse = $"{n2}_{n1}";
                     if (readArcs.ContainsKey(idx))
@@ -63,7 +64,7 @@ namespace YenWeb.Logic
 
         public string WriteText(List<ShortestPath> lines)
         {
-
+            CultureInfo format = new CultureInfo("en-US");
             int k = 0;
             var writer = new StringBuilder();
 
@@ -79,8 +80,8 @@ namespace YenWeb.Logic
                         k.ToString(),
                         Name(a.Origin),
                         Name(a.Destination),
-                        a.Weight.ToString("N2"),
-                        startToNodeWeight.ToString("N2"),
+                        a.Weight.ToString("N4", format),
+                        startToNodeWeight.ToString("N2", format),
                         Name(line.OriginNode),
                         Name(line.DestinationNode)
                         ));
@@ -94,8 +95,8 @@ namespace YenWeb.Logic
                         k.ToString(),
                         Name(a.Destination),
                         Name(a.Origin),
-                        a.Weight.ToString("N2"),
-                        startToNodeWeight.ToString("N2"),
+                        a.Weight.ToString("N4", format),
+                        startToNodeWeight.ToString("N4", format),
                         Name(line.DestinationNode),
                         Name(line.OriginNode)
                         ));

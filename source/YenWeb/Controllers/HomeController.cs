@@ -32,6 +32,8 @@ namespace YenWeb.Controllers
         {
             if(ModelState.IsValid)
             {
+                StreamWriter w = null;
+                MemoryStream stream = null;
                 try
                 {
                     GraphConvert r = new GraphConvert();
@@ -47,8 +49,9 @@ namespace YenWeb.Controllers
                         CsvString = result
                     };
 
-                    var stream = new MemoryStream();
-                    StreamWriter w = new StreamWriter(stream);
+                    stream = new MemoryStream();                    
+                    w = new StreamWriter(stream);
+
                     w.Write(vmResult.CsvString);
                     w.Flush();
                     stream.Position = 0;
@@ -58,6 +61,13 @@ namespace YenWeb.Controllers
                 {
                     ViewBag.ExceptionMessage = ex.Message;
                     return View("Failed");
+                }
+                finally
+                {
+                    if (stream != null)
+                        stream.Dispose();
+                    if (w != null)
+                        w.Dispose();
                 }
             }
             else

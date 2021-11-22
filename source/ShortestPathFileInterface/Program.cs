@@ -11,9 +11,7 @@ namespace ShortestPathFileInterface
         static void Main(string[] args)
         {
             StartYenAlgorithm();
-
             //StartDijkstraAlgorithm();
-
         }
 
         private static void StartDijkstraAlgorithm()
@@ -115,5 +113,6 @@ namespace ShortestPathFileInterface
                 Console.ReadKey();
             }
         }
+
     }
 }

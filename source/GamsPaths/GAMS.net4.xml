@@ -510,9 +510,14 @@
             Could not read environment variable
             </summary>
         </member>
-        <member name="F:GAMS.GAMSExitCode.CouldNotSpawnGAMScmex">
+        <member name="F:GAMS.GAMSExitCode.CouldNotFindGMSPython">
             <summary>
             Could not spawn the GAMS language compiler (gamscmex) 
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSExitCode.CouldNotSpawnGAMScmex">
+            <summary>
+            Could not find directory GMSPython in GAMS system directory. Set pySetup=0 to use external Python installation
             </summary>
         </member>
         <member name="F:GAMS.GAMSExitCode.CurDirNotFound">
@@ -3229,22 +3234,22 @@
         </member>
         <member name="F:GAMS.GAMSOptions.ETraceOpt.SolverAndGAMSStepTraceWOHeaders">
             <summary>
-            Solver and GAMS step trace without headers
+            Solver and GAMS step trace
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ETraceOpt.SolverAndGAMSStepTrace">
             <summary>
-            Solver and GAMS step trace
+            Solver and GAMS exit trace
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ETraceOpt.SolverStepTraceOnly">
             <summary>
-            Solver step trace only
+            Solver trace only
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ETraceOpt.TraceFileFormatGAMSPerformanceWorld">
             <summary>
-            Trace file format used for GAMS performance world
+            Solver trace only in format used for GAMS performance world
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ETraceOpt.TraceFileFormatSupportingNLPEC">
@@ -3254,7 +3259,7 @@
         </member>
         <member name="F:GAMS.GAMSOptions.ETraceOpt.TraceFileWithAllAvailableTraceFields">
             <summary>
-            Trace file with all available trace fields
+            Gams exit trace with all available trace fields
             </summary>
         </member>
         <member name="P:GAMS.GAMSOptions.TraceOpt">
@@ -3474,7 +3479,7 @@
         </member>
         <member name="P:GAMS.GAMSOptions.TraceLevel">
             <summary>
-            Solvestat threshold used in conjunction with action=GT
+            Modelstat/Solvestat threshold used in conjunction with action=GT
             </summary>
         </member>
         <member name="P:GAMS.GAMSOptions.Timer">
@@ -3539,42 +3544,42 @@
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.ChainScript">
             <summary>
-            GAMS operates as it has for years
+            Model instance and entire GAMS state saved to scratch directory, GAMS exits (and vacates memory), and the solver script is called. After the solver terminates, GAMS restarts from the saved state and continues to executing
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.CallScript">
             <summary>
-            Solver is called from a shell and GAMS remains open
+            Model instance saved to scratch directory, the solver is called from a shell while GAMS remains open
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.CallModule">
             <summary>
-            Solver is called with a spawn (if possible) or a shell (if spawn is not possible) and GAMS remains open
+            Model instance saved to scratch directory, the solver is called with a spawn (if possible) or a shell (if spawn is not possible) while GAMS remains open
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.AsyncGrid">
             <summary>
-            GAMS starts the solution and continues in a Grid computing environment
+            Model instance saved to scratch directory, the solver starts the solution and GAMS continues in a grid computing environment
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.AsyncSimulate">
             <summary>
-            GAMS starts the solution and wait (same submission process as 3) in a Grid computing environment
+            Model instance saved to scratch directory, the solver starts the solution and GAMS waits for the solver to come back but uses same submission process as 3 (test mode)
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.LoadLibrary">
             <summary>
-            The problem is passed to the solver in core without use of temporary files
+            The model instance is passed to the solver in-memory
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.LoadLibraryAsync">
             <summary>
-            The problem is passed to the solver in core without use of temporary files, GAMS does not wait for the solver to come back
+            The model instance is passed to the solver in-memory, the solver starts the solution and GAMS continues in a grid computing environment
             </summary>
         </member>
         <member name="F:GAMS.GAMSOptions.ESolveLink.LoadLibraryAsyncSimulate">
             <summary>
-            The problem is passed to the solver in core without use of temporary files, GAMS waits for the solver to come back but uses same submission process as 6
+            The model instance is passed to the solver in-memory, the solver starts the solution and GAMS waits for the solver to come back but uses same submission process as 6 (test mode)
             </summary>
         </member>
         <member name="P:GAMS.GAMSOptions.SolveLink">
@@ -4024,7 +4029,7 @@
         </member>
         <member name="P:GAMS.GAMSOptions.ThreadsAsync">
             <summary>
-            Number of threads to be used for asynchronous solve (solveLink=6)
+            Limit on number of threads to be used for asynchronous solves (solveLink=6)
             </summary>
         </member>
         <member name="P:GAMS.GAMSOptions.MCPRHoldfx">
@@ -4150,6 +4155,106 @@
         <member name="P:GAMS.GAMSOptions.LstTitleLeftAligned">
             <summary>
             Write title of LST file all left aligned
+            </summary>
+        </member>
+        <member name="T:GAMS.GAMSOptions.EFreeEmbeddedPython">
+            <summary>
+            Free external resources at the end of each embedded Python code blocks
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSOptions.EFreeEmbeddedPython.Off">
+            <summary>
+            Keep resources to reuse them potentially
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSOptions.EFreeEmbeddedPython.On">
+            <summary>
+            Free resources
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.FreeEmbeddedPython">
+            <summary>
+            Free external resources at the end of each embedded Python code blocks
+            </summary>
+        </member>
+        <member name="T:GAMS.GAMSOptions.ECaptureModelInstance">
+            <summary>
+            Switch to capture all model instances within a run
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSOptions.ECaptureModelInstance.Off">
+            <summary>
+            Do not capture model instances
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSOptions.ECaptureModelInstance.On">
+            <summary>
+            Capture model instances
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.CaptureModelInstance">
+            <summary>
+            Switch to capture all model instances within a run
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCJSON">
+            <summary>
+            Specify JSON file name to verify data contract
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCGenerateJSON">
+            <summary>
+            Specify JSON file name of data contract
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCGenerateGDX">
+            <summary>
+            Specify GDX file name of input and output side of data contract
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCGenerateGDXInput">
+            <summary>
+            Specify GDX file name of input side of data contract
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCGenerateGDXOutput">
+            <summary>
+            Specify GDX file name of output side of data contract
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCGDXInput">
+            <summary>
+            GDX file name with data for implicit input
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCGDXOutput">
+            <summary>
+            GDX file name for data for implicit output
+            </summary>
+        </member>
+        <member name="T:GAMS.GAMSOptions.ECheckErrorLevel">
+            <summary>
+            Check errorLevel automatically after executing external program
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSOptions.ECheckErrorLevel.Off">
+            <summary>
+            Do not check errorLevel automatically after execution of external program
+            </summary>
+        </member>
+        <member name="F:GAMS.GAMSOptions.ECheckErrorLevel.On">
+            <summary>
+            Check errorLevel automatically after execution of external program
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.CheckErrorLevel">
+            <summary>
+            Check errorLevel automatically after executing external program
+            </summary>
+        </member>
+        <member name="P:GAMS.GAMSOptions.IDCProtect">
+            <summary>
+            Flag to control assignment protection of external input symbols
             </summary>
         </member>
         <member name="P:GAMS.GAMSOptions.LP">
