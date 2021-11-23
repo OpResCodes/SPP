@@ -1,0 +1,130 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Path Generator";
+}
+
+<h2>Line Generation Algorithm</h2>
+<p class="small">Based on modified <a href="https://doi.org/10.1287/mnsc.17.11.712" target="_blank">Yen's Algorithm</a> to find the k shortest loopless paths in a network</p>
+<hr />
+
+<div class="row">
+    <div class="col-md-5">
+        <img src="~/images/metro.png" class="img-fluid" />
+    </div>
+    <div class="col-md-7">
+        <p>Please provide a list of links defined in CSV format in the following structure:</p>
+        <p>
+            ArcId;Node1;Node2;Weight <br />
+            K1;N1;N3;30 <br />
+            K2;N2;N3;25 <br />
+            K3;N3;N4;15 <br />
+            ...
+        </p>
+        <p>
+            Nodelabels, Arclabels can be any arbitrary string, the header line can be any string and <strong>will be skipped</strong>.
+            The column order must not be changed.
+            Please check your list of links for duplicates. 
+            If your list defines links (i,j) only and you would like to include the reverse links (j,i) in the path calculation, 
+            then mark the checkbox "Auto-Insert Reverse Arcs". Do not mark this checkbox if you already define a complete list of links,
+            that is links in both directions.
+        </p>
+    </div>
+</div>
+<hr />
+<form method="post">
+    <div class="row">
+        <div class="col-md-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Viewmodel.MinimumLength" class="form-label"></label>
+                <input asp-for="Viewmodel.MinimumLength" class="form-control" />
+                <span asp-validation-for="Viewmodel.MinimumLength" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Viewmodel.MaximumLength" class="form-label"></label>
+                <input asp-for="Viewmodel.MaximumLength" class="form-control" />
+                <span asp-validation-for="Viewmodel.MaximumLength" class="text-danger"></span>
+            </div>
+            <div class="form-group ml-4">
+                <input asp-for="Viewmodel.MirrorArcs" class="form-check-input" />
+                <label asp-for="Viewmodel.MirrorArcs" class="form-check-label"></label>
+                <span asp-validation-for="Viewmodel.MirrorArcs" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="form-group">
+                <label asp-for="Viewmodel.CsvString" class="form-label"></label>
+                <textarea asp-for="Viewmodel.CsvString" class="form-control" placeholder="Paste CSV Text in this field." style="height: 300px"></textarea>
+                <span asp-validation-for="Viewmodel.CsvString" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Generate" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-12">
+        <h3>If successfull, the app returns a .csv file with the following layout</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Line</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Node1</th>
+                    <th scope="col">Node2</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">DistToNode2</th>
+                    <th scope="col">LineOrigin</th>
+                    <th scope="col">LineDestination</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>The Path/Line Number</td>
+                    <td>The type of line - A is one direction, B is reverse direction</td>
+                    <td>Origin node of the link belonging to line in column 1</td>
+                    <td>Destination node of the link belonging to line in column 1</td>
+                    <td>Weight of the individual link</td>
+                    <td>Cumulated weights from the origin of the line to the corresponding node of column 4</td>
+                    <td>Origin node of the line/path.</td>
+                    <td>Destination node line/path.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Note: Each row of the csv file represents a link of a line/path.</p>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">We encountered an error.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @ViewData["Error"]
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    if(ViewData["Error"] != null)
+    {
+        <script>
+            $('#exampleModalScrollable').modal('show')   
+        </script>
+    }
+ }
+}

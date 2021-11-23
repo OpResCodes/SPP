@@ -1,0 +1,3 @@
+﻿namespace PathGenerator.Skia.Gtk
+{
+}
