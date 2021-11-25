@@ -21,7 +21,10 @@ namespace PathGenerator.Web.Model
                 reader.ReadLine();
                 while (reader.Peek() >= 0)
                 {
-                    string row = reader.ReadLine().Trim();
+                    string? row = reader.ReadLine();
+                    if(row != null)
+                        row = row.Trim();
+
                     if (string.IsNullOrEmpty(row))
                     {
                         continue;
@@ -39,12 +42,12 @@ namespace PathGenerator.Web.Model
                     if (readArcs.ContainsKey(idx))
                         throw new System.Exception($"Duplicate Arc: ({n1},{n2})");
                     
-                    if (!readNodes.TryGetValue(n1, out TaggedNode node1))
+                    if (!readNodes.TryGetValue(n1, out TaggedNode? node1))
                     {
                         node1 = new TaggedNode() { Name = n1 };
                         readNodes.Add(n1, node1);
                     }
-                    if (!readNodes.TryGetValue(n2, out TaggedNode node2))
+                    if (!readNodes.TryGetValue(n2, out TaggedNode? node2))
                     {
                         node2 = new TaggedNode() { Name = n2 };
                         readNodes.Add(n2, node2);
@@ -86,7 +89,7 @@ namespace PathGenerator.Web.Model
                         ));
                 }
                 startToNodeWeight = 0;
-                for (int i = line.OrderedArcs.Count - 1; i >= 0; i--)
+                for (int i = line.OrderedArcs.Length - 1; i >= 0; i--)
                 {
                     var a = line.OrderedArcs[i];
                     startToNodeWeight += a.Weight;

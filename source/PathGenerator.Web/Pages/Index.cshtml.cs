@@ -34,11 +34,12 @@ namespace PathGenerator.Web.Pages
                 return Page();
             }
 
-            StreamWriter w = null;
-            MemoryStream stream = null;
+            StreamWriter? w = null;
+            MemoryStream? stream = null;
             try
             {
-                _logger.LogInformation("Generating Paths. CSV-Length: {0}",Viewmodel.CsvString.Length);
+                LogCsv(Viewmodel.CsvString);
+
                 GraphConvert r = new GraphConvert();
                 
                 var graph = r.ReadGraphFromString(Viewmodel.CsvString, Viewmodel.MirrorArcs);
@@ -61,6 +62,14 @@ namespace PathGenerator.Web.Pages
                 ViewData["Error"] = ex.Message;
                 return Page();
             }
+        }
+
+        private void LogCsv(string csvString)
+        {
+            int n = csvString.Length;
+            _logger.LogInformation("Generating Paths. CSV-Length: {0}", n);
+            n = Math.Min(120, n);
+            _logger.LogInformation("Csv string head:\n\n '{0}' \n [...]", csvString.Substring(0,n));
         }
 
         [BindProperty]

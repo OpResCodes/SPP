@@ -10,55 +10,38 @@ namespace ShortestPaths.Algorithms.Dijkstra
     /// </summary>
     public sealed class ShortestPath
     {
-        public ShortestPath(List<Arc> arcs)
+        public ShortestPath(IEnumerable<Arc> arcs)
         {
-            OrderedArcs = arcs;
+            OrderedArcs = arcs.ToArray();
             if (!IsEmpty)
             {
                 TotalWeight = DestinationNode.DistanceFromSource;
+
+                OrderedNodes = new Node[OrderedArcs.Length + 1];
+                for (int i = 0; i < OrderedArcs.Length; i++)
+                {
+                    OrderedNodes[i] = OrderedArcs[i].Origin;
+                }
+                OrderedNodes[^1] = DestinationNode;
             }
             else
             {
                 TotalWeight = double.NaN;
-            }
+                OrderedNodes = new Node[0];
+            }            
         }
 
-        public List<Arc> OrderedArcs { get; set; }
+        private ShortestPath() : this(new Arc[0]) { }
 
-        public List<Node> OrderedNodes
-        {
-            get
-            {
-                if (_orderedNodes == null)
-                {
-                    _orderedNodes = new List<Node>();
-                    if (!IsEmpty)
-                    {
-                        for (int i = 0; i < OrderedArcs.Count; i++)
-                        {
-                            _orderedNodes.Add(OrderedArcs[i].Origin);
-                        }
-                        _orderedNodes.Add(DestinationNode);
-                    }
-                }
-                return _orderedNodes;
-            }
-        }
+        public Arc[] OrderedArcs { get; set; }
 
-        private List<Node> _orderedNodes = null;
+        public Node[] OrderedNodes { get; private set; }
 
         public Node OriginNode
         {
             get
             {
-                if (!IsEmpty)
-                {
-                    return OrderedArcs[0].Origin;
-                }
-                else
-                {
-                    return null;
-                }
+                return OrderedArcs[0].Origin;
             }
         }
 
@@ -66,14 +49,7 @@ namespace ShortestPaths.Algorithms.Dijkstra
         {
             get
             {
-                if (!IsEmpty)
-                {
-                    return OrderedArcs[OrderedArcs.Count - 1].Destination;
-                }
-                else
-                {
-                    return null;
-                }
+                return OrderedArcs[^1].Destination;
             }
         }
 
@@ -81,7 +57,7 @@ namespace ShortestPaths.Algorithms.Dijkstra
 
         public bool IsEmpty
         {
-            get { return OrderedArcs == null || OrderedArcs.Count == 0; }
+            get { return OrderedArcs.Length == 0; }
         }
 
         public override string ToString()
@@ -90,7 +66,7 @@ namespace ShortestPaths.Algorithms.Dijkstra
             {
                 StringBuilder sb = new StringBuilder();
                 var n = OrderedNodes;
-                int k = n.Count - 1;
+                int k = n.Length - 1;
                 sb.AppendFormat("Path: {0} - {1}, Weight: {2}\n", n[0].Id, n[k].Id, TotalWeight.ToString("N2"));
                 for (int i = 0; i < k; i++)
                 {

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShortestPaths.Algorithms.Dijkstra
 {
@@ -206,9 +203,8 @@ namespace ShortestPaths.Algorithms.Dijkstra
         }
 
         private Node FindNodeInGraph(int id)
-        {
-            Node node = null;
-            if (Graph.NodeDictionary.TryGetValue(id, out node))
+        {            
+            if (Graph.NodeDictionary.TryGetValue(id, out Node? node))
                 return node;
             else
                 throw new ArgumentException("Node with Id " + id + "is not part of the Graph!");

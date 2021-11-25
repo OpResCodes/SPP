@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ShortestPaths.Algorithms.Dijkstra;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,7 +42,7 @@ namespace ShortestPaths.Algorithms.Yen
             {
                 RestoreArcWeights();
                 //iterate from origin to last node before destination (could be origin too)
-                int q = bestPaths[k - 1].OrderedNodes.Count - 1;
+                int q = bestPaths[k - 1].OrderedNodes.Length - 1;
                 for (int i = 0; i < q; i++)
                 {
                     _logger.LogTrace($"k={k}, i={i}, Spurnode={bestPaths[k - 1].OrderedNodes[i].Id}");
@@ -132,7 +133,7 @@ namespace ShortestPaths.Algorithms.Yen
         private List<Arc> GetRootArcsOfPath(ShortestPath path, int i)
         {
             List<Arc> arcs = new List<Arc>();
-            if (i < 1 || path.OrderedNodes.Count - 1 < i)
+            if (i < 1 || path.OrderedNodes.Length - 1 < i)
             {
                 return arcs;
             }
@@ -152,9 +153,22 @@ namespace ShortestPaths.Algorithms.Yen
         {
             Node origin = p.OrderedNodes[i];
             Node destination = p.OrderedNodes[i + 1];
-            DynamicArc arc = (DynamicArc)p.OrderedArcs.Find(a => a.Origin.Equals(origin) && a.Destination.Equals(destination));
+            DynamicArc arc = FindArc(p.OrderedArcs, origin, destination);
             DenyArc(arc);
         }
+
+        private DynamicArc FindArc(Arc[] arcArray, Node origin, Node destination)
+        {
+            for (int i = 0; i < arcArray.Length; i++)
+            {
+                if(arcArray[i].Origin.Equals(origin) && arcArray[i].Destination.Equals(destination))
+                {
+                    return (DynamicArc)arcArray[i];
+                }
+            }
+            throw new InvalidOperationException("Arc not found.");
+        }
+
 
         private void RestoreArcWeights()
         {
